@@ -4,6 +4,10 @@
 
 namespace App\Enums;
 
+/**
+ * 通用 API 回傳代碼列舉（英文版）
+ * English-only response message for consistency.
+ */
 enum ResponseCode: int
 {
     case Error = -1;
@@ -16,6 +20,9 @@ enum ResponseCode: int
     case PaymentError = 3001;
     case DatabaseError = 5000;
 
+    /**
+     * 回傳標準化的英文訊息內容。
+     */
     public function message(): string
     {
         return match ($this) {
