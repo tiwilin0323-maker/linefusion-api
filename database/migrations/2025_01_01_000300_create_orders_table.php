@@ -23,7 +23,6 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'paid', 'failed'])->default('pending')->comment('付款狀態');
             $table->enum('status', ['new', 'processing', 'completed', 'cancelled'])->default('new')->comment('訂單狀態');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->unique('order_no', 'idx_orders_order_no');
             $table->index('user_id', 'idx_orders_user_id');

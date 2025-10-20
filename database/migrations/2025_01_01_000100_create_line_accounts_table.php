@@ -19,10 +19,9 @@ return new class extends Migration
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('user_id')->comment('對應使用者編號');
             $table->string('line_user_id', 255)->comment('LINE 使用者代號');
-            $table->text('access_token')->comment('授權 Access Token');
-            $table->text('refresh_token')->nullable()->comment('授權 Refresh Token');
+            $table->text('access_token')->comment('LINE 授權 Access Token');
+            $table->text('refresh_token')->comment('LINE 授權 Refresh Token');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->unique('line_user_id', 'idx_line_accounts_line_user_id');
             $table->index('user_id', 'idx_line_accounts_user_id');

@@ -18,18 +18,18 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('name', 150)->comment('商品名稱');
-            $table->string('category', 50)->comment('商品分類');
-            $table->decimal('price', 10, 2)->comment('商品售價');
-            $table->string('image_url', 255)->nullable()->comment('商品圖片網址');
-            $table->text('description')->nullable()->comment('商品描述');
-            $table->integer('stock')->default(0)->comment('庫存數量');
+            $table->string('category', 50)->comment('商品類別');
+            $table->decimal('price', 10, 2)->comment('價格');
+            $table->string('image_url', 255)->comment('圖片連結');
+            $table->text('description')->comment('商品描述');
+            $table->integer('stock')->comment('庫存數量');
             $table->enum('status', ['active', 'inactive'])->default('active')->comment('商品狀態');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->index('category', 'idx_products_category');
             $table->index('status', 'idx_products_status');
-            $table->comment('商品主檔資料表');
+
+            $table->comment('商品主檔');
         });
     }
 

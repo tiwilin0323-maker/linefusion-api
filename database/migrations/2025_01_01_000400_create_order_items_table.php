@@ -17,12 +17,11 @@ return new class extends Migration
 
         Schema::create('order_items', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
-            $table->unsignedBigInteger('order_id')->comment('訂單主檔編號');
-            $table->unsignedBigInteger('product_id')->comment('商品編號');
-            $table->integer('quantity')->comment('購買數量');
+            $table->unsignedBigInteger('order_id')->comment('對應訂單編號');
+            $table->unsignedBigInteger('product_id')->comment('對應商品編號');
+            $table->integer('quantity')->comment('訂購數量');
             $table->decimal('price', 10, 2)->comment('商品單價');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->index('order_id', 'idx_order_items_order_id');
             $table->index('product_id', 'idx_order_items_product_id');

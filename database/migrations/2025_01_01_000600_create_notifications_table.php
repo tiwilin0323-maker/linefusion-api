@@ -17,12 +17,11 @@ return new class extends Migration
 
         Schema::create('notifications', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
-            $table->unsignedBigInteger('user_id')->comment('通知對象編號');
+            $table->unsignedBigInteger('user_id')->comment('接收通知的使用者編號');
             $table->enum('channel', ['LINE', 'Email'])->comment('通知管道');
             $table->text('message')->comment('通知內容');
             $table->enum('status', ['queued', 'sent', 'failed'])->default('queued')->comment('發送狀態');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->index('user_id', 'idx_notifications_user_id');
             $table->index('status', 'idx_notifications_status');
@@ -30,7 +29,7 @@ return new class extends Migration
                 ->references('id')->on('users')
                 ->cascadeOnDelete();
 
-            $table->comment('通知紀錄資料表');
+            $table->comment('通知發送紀錄');
         });
     }
 

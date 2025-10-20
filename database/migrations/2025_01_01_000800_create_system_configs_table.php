@@ -17,14 +17,12 @@ return new class extends Migration
 
         Schema::create('system_configs', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
-            $table->string('key', 100)->comment('設定鍵名');
-            $table->text('value')->nullable()->comment('設定值');
+            $table->string('key', 100)->unique('idx_system_configs_key')->comment('設定鍵名');
+            $table->text('value')->comment('設定值');
             $table->string('description', 255)->nullable()->comment('設定說明');
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->unique('key', 'idx_system_configs_key');
-            $table->comment('系統設定參數資料表');
+            $table->comment('系統設定參數表');
         });
     }
 

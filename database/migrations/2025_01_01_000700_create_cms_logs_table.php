@@ -20,8 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('admin_id')->comment('操作管理者編號');
             $table->string('action', 100)->comment('操作動作');
             $table->text('detail')->nullable()->comment('操作詳情');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at')->comment('建立時間');
 
             $table->index('admin_id', 'idx_cms_logs_admin_id');
             $table->foreign('admin_id', 'fk_cms_logs_admin_id')

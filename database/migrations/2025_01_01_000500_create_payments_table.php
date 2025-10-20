@@ -17,14 +17,13 @@ return new class extends Migration
 
         Schema::create('payments', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
-            $table->unsignedBigInteger('order_id')->comment('訂單主檔編號');
+            $table->unsignedBigInteger('order_id')->comment('對應訂單編號');
             $table->string('trade_no', 50)->comment('金流交易編號');
             $table->decimal('amount', 10, 2)->comment('付款金額');
             $table->enum('status', ['pending', 'success', 'failed'])->default('pending')->comment('付款狀態');
             $table->string('response_code', 10)->nullable()->comment('金流回傳代碼');
-            $table->timestamp('paid_at')->nullable()->comment('付款完成時間');
+            $table->dateTime('paid_at')->nullable()->comment('付款完成時間');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->unique('trade_no', 'idx_payments_trade_no');
             $table->index('order_id', 'idx_payments_order_id');
@@ -33,7 +32,7 @@ return new class extends Migration
                 ->references('id')->on('orders')
                 ->cascadeOnDelete();
 
-            $table->comment('金流交易紀錄資料表');
+            $table->comment('金流交易紀錄');
         });
     }
 

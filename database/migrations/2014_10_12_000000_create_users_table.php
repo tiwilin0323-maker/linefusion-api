@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('email', 255)->unique('idx_users_email')->comment('電子郵件');
             $table->string('password', 255)->comment('雜湊密碼');
             $table->enum('role', ['user', 'admin'])->default('user')->comment('角色權限');
+            $table->enum('status', ['active', 'inactive', 'banned'])->default('active')->comment('使用者狀態');
             $table->timestamps();
-            $table->softDeletes();
 
             $table->comment('系統使用者主檔');
         });
