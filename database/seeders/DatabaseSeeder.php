@@ -10,6 +10,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // 在此呼叫各模組的資料填充器。
+        $this->call([
+            InitialDataSeeder::class,
+        ]);
     }
 }
