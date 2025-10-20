@@ -10,8 +10,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->call([
-            InitialDataSeeder::class,
-        ]);
+        // 目前僅建立資料表結構，尚未配置預設資料。
     }
 }

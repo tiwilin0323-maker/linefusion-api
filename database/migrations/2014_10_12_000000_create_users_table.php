@@ -10,14 +10,21 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // 若資料表已存在則不重複建立。
+        if (Schema::hasTable('users')) {
+            return;
+        }
+
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 100);
-            $table->string('email', 255)->unique();
-            $table->string('password', 255);
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->id()->comment('主鍵編號');
+            $table->string('name', 100)->comment('使用者名稱');
+            $table->string('email', 255)->unique('idx_users_email')->comment('電子郵件');
+            $table->string('password', 255)->comment('雜湊密碼');
+            $table->enum('role', ['user', 'admin'])->default('user')->comment('角色權限');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->comment('系統使用者主檔');
         });
     }
 

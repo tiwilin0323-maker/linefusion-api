@@ -10,16 +10,30 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // 若資料表已存在則不重複建立。
+        if (Schema::hasTable('order_items')) {
+            return;
+        }
+
         Schema::create('order_items', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('order_id')->constrained('orders', 'id', 'fk_order_items_order_id')->cascadeOnDelete();
-            $table->foreignId('product_id')->constrained('products', 'id', 'fk_order_items_product_id');
-            $table->integer('quantity');
-            $table->decimal('price', 10, 2);
+            $table->id()->comment('主鍵編號');
+            $table->unsignedBigInteger('order_id')->comment('訂單主檔編號');
+            $table->unsignedBigInteger('product_id')->comment('商品編號');
+            $table->integer('quantity')->comment('購買數量');
+            $table->decimal('price', 10, 2)->comment('商品單價');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['order_id', 'product_id'], 'idx_order_items_order_product');
+            $table->index('order_id', 'idx_order_items_order_id');
+            $table->index('product_id', 'idx_order_items_product_id');
+            $table->foreign('order_id', 'fk_order_items_order_id')
+                ->references('id')->on('orders')
+                ->cascadeOnDelete();
+            $table->foreign('product_id', 'fk_order_items_product_id')
+                ->references('id')->on('products')
+                ->cascadeOnDelete();
+
+            $table->comment('訂單明細資料表');
         });
     }
 

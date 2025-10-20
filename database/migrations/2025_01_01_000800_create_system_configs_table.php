@@ -10,13 +10,21 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // 若資料表已存在則不重複建立。
+        if (Schema::hasTable('system_configs')) {
+            return;
+        }
+
         Schema::create('system_configs', function (Blueprint $table) {
-            $table->id();
-            $table->string('key', 100)->unique();
-            $table->text('value')->nullable();
-            $table->string('description', 255)->nullable();
+            $table->id()->comment('主鍵編號');
+            $table->string('key', 100)->comment('設定鍵名');
+            $table->text('value')->nullable()->comment('設定值');
+            $table->string('description', 255)->nullable()->comment('設定說明');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('key', 'idx_system_configs_key');
+            $table->comment('系統設定參數資料表');
         });
     }
 

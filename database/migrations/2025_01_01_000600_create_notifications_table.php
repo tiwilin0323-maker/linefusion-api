@@ -10,16 +10,27 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // 若資料表已存在則不重複建立。
+        if (Schema::hasTable('notifications')) {
+            return;
+        }
+
         Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users', 'id', 'fk_notifications_user_id')->cascadeOnDelete();
-            $table->enum('channel', ['LINE', 'Email']);
-            $table->text('message');
-            $table->enum('status', ['queued', 'sent', 'failed'])->default('queued');
+            $table->id()->comment('主鍵編號');
+            $table->unsignedBigInteger('user_id')->comment('通知對象編號');
+            $table->enum('channel', ['LINE', 'Email'])->comment('通知管道');
+            $table->text('message')->comment('通知內容');
+            $table->enum('status', ['queued', 'sent', 'failed'])->default('queued')->comment('發送狀態');
             $table->timestamps();
             $table->softDeletes();
 
             $table->index('user_id', 'idx_notifications_user_id');
+            $table->index('status', 'idx_notifications_status');
+            $table->foreign('user_id', 'fk_notifications_user_id')
+                ->references('id')->on('users')
+                ->cascadeOnDelete();
+
+            $table->comment('通知紀錄資料表');
         });
     }
 

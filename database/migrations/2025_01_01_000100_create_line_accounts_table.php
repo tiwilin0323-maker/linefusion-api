@@ -10,14 +10,27 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // 若資料表已存在則不重複建立。
+        if (Schema::hasTable('line_accounts')) {
+            return;
+        }
+
         Schema::create('line_accounts', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users', 'id', 'fk_line_accounts_user_id')->cascadeOnDelete();
-            $table->string('line_user_id', 255)->unique();
-            $table->text('access_token');
-            $table->text('refresh_token')->nullable();
+            $table->id()->comment('主鍵編號');
+            $table->unsignedBigInteger('user_id')->comment('對應使用者編號');
+            $table->string('line_user_id', 255)->comment('LINE 使用者代號');
+            $table->text('access_token')->comment('授權 Access Token');
+            $table->text('refresh_token')->nullable()->comment('授權 Refresh Token');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique('line_user_id', 'idx_line_accounts_line_user_id');
+            $table->index('user_id', 'idx_line_accounts_user_id');
+            $table->foreign('user_id', 'fk_line_accounts_user_id')
+                ->references('id')->on('users')
+                ->cascadeOnDelete();
+
+            $table->comment('LINE 綁定帳號資料表');
         });
     }
 
