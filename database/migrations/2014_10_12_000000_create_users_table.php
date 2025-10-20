@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password', 255)->comment('雜湊密碼');
             $table->enum('role', ['user', 'admin'])->default('user')->comment('角色權限');
             $table->enum('status', ['active', 'inactive', 'banned'])->default('active')->comment('使用者狀態');
+            $table->string('note', 100)->nullable()->comment('備註說明');
             $table->timestamps();
 
             $table->comment('系統使用者主檔');
