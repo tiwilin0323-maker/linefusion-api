@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 users 資料表並定義基本欄位與索引。
         Schema::create('users', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('name', 100)->comment('使用者名稱');

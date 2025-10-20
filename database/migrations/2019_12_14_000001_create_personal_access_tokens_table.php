@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 personal_access_tokens 資料表儲存個人 API Token。
         Schema::create('personal_access_tokens', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('tokenable_type')->comment('授權模型類型');

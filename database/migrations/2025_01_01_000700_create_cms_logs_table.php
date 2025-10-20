@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 cms_logs 資料表以保存後台操作紀錄。
         Schema::create('cms_logs', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('admin_id')->comment('操作管理者編號');

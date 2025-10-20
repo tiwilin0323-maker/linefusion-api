@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 notifications 資料表以追蹤通知發送紀錄。
         Schema::create('notifications', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('user_id')->comment('接收通知的使用者編號');

@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 products 資料表以管理商品資訊。
         Schema::create('products', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('name', 150)->comment('商品名稱');

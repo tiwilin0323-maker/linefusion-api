@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 password_reset_tokens 資料表以儲存密碼重設資訊。
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email', 255)->primary()->comment('電子郵件作為主鍵');
             $table->string('token')->comment('重設密碼 Token');

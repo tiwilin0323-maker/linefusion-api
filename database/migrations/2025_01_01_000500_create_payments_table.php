@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 payments 資料表以記錄金流交易資訊。
         Schema::create('payments', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('order_id')->comment('對應訂單編號');

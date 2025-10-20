@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 orders 資料表以紀錄訂單主檔資訊。
         Schema::create('orders', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('user_id')->comment('對應使用者編號');

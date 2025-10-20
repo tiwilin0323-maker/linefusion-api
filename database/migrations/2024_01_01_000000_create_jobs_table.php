@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 jobs 資料表以儲存待執行的佇列任務。
         Schema::create('jobs', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('queue')->index('idx_jobs_queue')->comment('佇列名稱');

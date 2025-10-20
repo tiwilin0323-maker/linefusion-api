@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 failed_jobs 資料表用於紀錄佇列失敗任務。
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('uuid')->unique('idx_failed_jobs_uuid')->comment('任務識別碼');

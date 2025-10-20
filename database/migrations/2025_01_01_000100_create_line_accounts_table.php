@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 line_accounts 資料表以儲存 LINE 綁定資訊。
         Schema::create('line_accounts', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('user_id')->comment('對應使用者編號');

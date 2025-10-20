@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 system_configs 資料表以儲存系統設定參數。
         Schema::create('system_configs', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->string('key', 100)->unique('idx_system_configs_key')->comment('設定鍵名');

@@ -15,6 +15,7 @@ return new class extends Migration
             return;
         }
 
+        // 建立 order_items 資料表以儲存訂單細項。
         Schema::create('order_items', function (Blueprint $table) {
             $table->id()->comment('主鍵編號');
             $table->unsignedBigInteger('order_id')->comment('對應訂單編號');
