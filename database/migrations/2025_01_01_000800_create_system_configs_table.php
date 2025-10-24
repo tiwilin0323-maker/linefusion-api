@@ -1,0 +1,34 @@
+<?php
+
+// 此檔案定義建立 system_configs 資料表的資料庫遷移。
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        // 若資料表已存在則不重複建立。
+        if (Schema::hasTable('system_configs')) {
+            return;
+        }
+
+        // 建立 system_configs 資料表以儲存系統設定參數。
+        Schema::create('system_configs', function (Blueprint $table) {
+            $table->id()->comment('主鍵編號');
+            $table->string('key', 100)->unique('idx_system_configs_key')->comment('設定鍵名');
+            $table->text('value')->comment('設定值');
+            $table->string('description', 255)->nullable()->comment('設定說明');
+            $table->timestamps();
+
+            $table->comment('系統設定參數表');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('system_configs');
+    }
+};

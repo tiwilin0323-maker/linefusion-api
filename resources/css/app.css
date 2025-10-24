@@ -1,0 +1,9 @@
+/* 此檔案定義前端樣式的基礎設定與匯入。 */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: 'Figtree', sans-serif;
+}
