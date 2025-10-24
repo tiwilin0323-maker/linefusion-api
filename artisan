@@ -1,13 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-// 此檔案為 Laravel Artisan 指令的主要進入點。
-
-use Illuminate\Foundation\Console\Kernel;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Output\ConsoleOutput;
-
-define('LARAVEL_START', microtime(true));
+use Illuminate\Contracts\Console\Kernel;
 
 require __DIR__.'/vendor/autoload.php';
 
@@ -15,10 +9,10 @@ $app = require_once __DIR__.'/bootstrap/app.php';
 
 $kernel = $app->make(Kernel::class);
 
-$input = new ArgvInput();
-$output = new ConsoleOutput();
-
-$status = $kernel->handle($input, $output);
+$status = $kernel->handle(
+    $input = new Symfony\Component\Console\Input\ArgvInput,
+    new Symfony\Component\Console\Output\ConsoleOutput
+);
 
 $kernel->terminate($input, $status);
 

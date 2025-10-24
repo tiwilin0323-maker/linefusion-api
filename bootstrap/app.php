@@ -1,7 +1,5 @@
 <?php
 
-// 此檔案負責設定 Laravel 應用程式的核心啟動流程。
-
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -47,4 +45,5 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         // 在此註冊自訂的例外處理行為。
-    });
+    })
+    ->create();
