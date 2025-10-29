@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Annotation\SuccessResponse;
+use App\Annotation\SwaggerAPI;
 use App\Core\Http\Request;
 use App\Core\Http\Response;
 
@@ -17,6 +19,11 @@ class HomeController extends Controller
         ]);
     }
 
+    #[SwaggerAPI(
+        title: 'API 健康檢查',
+        desc: '確認服務是否正常運作。',
+        success: new SuccessResponse(value: '取得目前服務狀態', type: 'array')
+    )]
     public function ping(Request $request): Response
     {
         return Response::json([
