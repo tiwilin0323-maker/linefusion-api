@@ -13,6 +13,7 @@ class SwaggerController extends Controller
     public function ui(Request $request): Response
     {
         return Response::view('swagger', [
+          
             'title' => 'LineFusion API 文件',
             'specUrl' => '/swagger.json',
         ]);
