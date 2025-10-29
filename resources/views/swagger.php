@@ -6,9 +6,7 @@
     <title><?= htmlspecialchars($title, ENT_QUOTES, 'UTF-8') ?></title>
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.7/swagger-ui.css">
     <style>
-        body { margin: 0; background: #0f172a; color: #e2e8f0; }
-        .topbar { display: none; }
-        #swagger-ui { margin: 0 auto; }
+        body { margin: 0; }
     </style>
 </head>
 <body>
