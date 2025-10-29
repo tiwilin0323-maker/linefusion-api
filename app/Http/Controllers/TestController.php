@@ -16,7 +16,7 @@ class TestController extends Controller
             'status' => 'ok',
             'data' => [
                 'id' => 1,
-                'name' => 'Test Item',
+                'name' => '測試項目',
                 'active' => true,
                 'requested_at' => now(),
             ],

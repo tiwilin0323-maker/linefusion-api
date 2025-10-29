@@ -13,7 +13,8 @@ class SwaggerController extends Controller
     public function ui(Request $request): Response
     {
         return Response::view('swagger', [
-            'title' => 'LineFusion API Docs',
+          
+            'title' => 'LineFusion API 文件',
             'specUrl' => '/swagger.json',
         ]);
     }
@@ -69,7 +70,7 @@ class SwaggerController extends Controller
                                                     'type' => 'object',
                                                     'properties' => [
                                                         'id' => ['type' => 'integer', 'example' => 1],
-                                                        'name' => ['type' => 'string', 'example' => 'Test Item'],
+                                                        'name' => ['type' => 'string', 'example' => '測試項目'],
                                                         'active' => ['type' => 'boolean', 'example' => true],
                                                     ],
                                                 ],
