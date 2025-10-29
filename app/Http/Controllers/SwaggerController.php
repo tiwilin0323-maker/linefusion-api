@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Config\SwaggerConfig;
 use App\Core\Http\Request;
 use App\Core\Http\Response;
 
@@ -12,78 +14,31 @@ class SwaggerController extends Controller
 {
     public function ui(Request $request): Response
     {
+        if (!SwaggerConfig::uiEnabled()) {
+            return Response::json([
+                'message' => 'Swagger UI 已停用',
+            ], 404);
+        }
+
+        $meta = SwaggerConfig::metadata();
+        $options = SwaggerConfig::uiOptions();
+
         return Response::view('swagger', [
-          
-            'title' => 'LineFusion API 文件',
+            'title' => $meta['title'] . ' 文件',
             'specUrl' => '/swagger.json',
+            'deepLinking' => $options['deep_linking'],
         ]);
     }
 
     public function json(Request $request): Response
     {
-        $spec = [
-            'openapi' => '3.0.3',
-            'info' => [
-                'title' => 'LineFusion API',
-                'version' => '1.0.0',
-                'description' => 'API 說明文件',
-            ],
-            'servers' => [
-                ['url' => $this->resolveServerUrl($request)],
-            ],
-            'paths' => [
-                '/api/ping' => [
-                    'get' => [
-                        'summary' => 'API 健康檢查',
-                        'responses' => [
-                            '200' => [
-                                'description' => '成功回應',
-                                'content' => [
-                                    'application/json' => [
-                                        'schema' => [
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'message' => ['type' => 'string', 'example' => 'pong'],
-                                                'timestamp' => ['type' => 'string'],
-                                                'query' => ['type' => 'object'],
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                '/api/test' => [
-                    'get' => [
-                        'summary' => '測試端點，回傳示範資料。',
-                        'responses' => [
-                            '200' => [
-                                'description' => '成功回應',
-                                'content' => [
-                                    'application/json' => [
-                                        'schema' => [
-                                            'type' => 'object',
-                                            'properties' => [
-                                                'status' => ['type' => 'string'],
-                                                'data' => [
-                                                    'type' => 'object',
-                                                    'properties' => [
-                                                        'id' => ['type' => 'integer', 'example' => 1],
-                                                        'name' => ['type' => 'string', 'example' => '測試項目'],
-                                                        'active' => ['type' => 'boolean', 'example' => true],
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-        ];
+        if (!SwaggerConfig::apiDocsEnabled()) {
+            return Response::json([
+                'message' => 'Swagger 文件已停用',
+            ], 404);
+        }
+
+        $spec = SwaggerConfig::createSpec($this->resolveServerUrl($request));
 
         return Response::json($spec);
     }

@@ -18,6 +18,10 @@ composer serve
 ```
 打開瀏覽器並造訪 [http://localhost:8000](http://localhost:8000)。
 
+## API 文件（Swagger）
+- Swagger UI：`GET /swagger`
+- OpenAPI JSON：`GET /swagger.json`
+
 ## 健康檢查
 - Web 首頁：`GET /`
 - API Ping：`GET /api/ping`

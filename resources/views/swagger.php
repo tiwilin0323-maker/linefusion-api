@@ -20,7 +20,7 @@
             url: '<?= htmlspecialchars($specUrl, ENT_QUOTES, 'UTF-8') ?>',
             dom_id: '#swagger-ui',
             layout: 'BaseLayout',
-            deepLinking: true,
+            deepLinking: <?= $deepLinking ? 'true' : 'false' ?>,
         });
     };
 </script>
